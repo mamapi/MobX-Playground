@@ -1,2 +1,4 @@
-export * from './ProductList'
-export * from './Product'
+import ProductList from './ProductList'
+import Product from './Product'
+
+export { ProductList, Product }

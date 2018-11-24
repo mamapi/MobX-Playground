@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Product } from './Product'
+import Product from './Product'
+import { Button } from '@material-ui/core'
 
-export class ProductList extends Component {
+class ProductList extends Component {
     state = {
         products: [
             { id: 0, name: 'Cofee', tags: ['White', 'Black'], isSold: false },
@@ -27,8 +28,12 @@ export class ProductList extends Component {
 
         return (
             <div>
-                <button onClick={() => this.setState({ sortBy: 'id' })}>Sort by id</button>
-                <button onClick={() => this.setState({ sortBy: 'name' })}>Sort by name</button>
+                <Button variant="outlined" color="primary" onClick={() => this.setState({ sortBy: 'id' })}>
+                    Sort by Id
+                </Button>
+                <Button variant="outlined" color="primary" onClick={() => this.setState({ sortBy: 'name' })}>
+                    Sort by Name
+                </Button>
                 <p>
                     <input type='text' value={this.state.filter} onChange={(e) => this.setState({ filter: e.target.value })} />
                 </p>
@@ -43,3 +48,6 @@ export class ProductList extends Component {
         )
     }
 }
+
+
+export default ProductList

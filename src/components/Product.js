@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Product = ({ id, name, tags, isSold, onBuyClick }) => {
+const Product = ({ id, name, tags, isSold, onBuyClick }) => {
 
     const handleClick = () => {
         onBuyClick(id)
@@ -19,3 +19,4 @@ export const Product = ({ id, name, tags, isSold, onBuyClick }) => {
     )
 }
 
+export default Product
