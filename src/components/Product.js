@@ -1,5 +1,13 @@
 import React from 'react'
 
+import { Button, Chip } from '@material-ui/core'
+
+import {
+    TableCell,
+    TableRow,
+} from '@material-ui/core';
+
+
 const Product = ({ id, name, tags, isSold, onBuyClick }) => {
 
     const handleClick = () => {
@@ -7,15 +15,26 @@ const Product = ({ id, name, tags, isSold, onBuyClick }) => {
     }
 
     return (
-        <div>
-            <span style={{ textDecoration: isSold ? 'line-through' : 'none' }}>{name}: </span>
-            <button onClick={handleClick}>
-                Buy
-        </button>
-            {tags.map(tag =>
-                <p key={tag}>{tag}</p>
-            )}
-        </div>
+        <TableRow>
+            <TableCell>
+                <span>{id}</span>
+            </TableCell>
+
+            <TableCell>
+                <span style={{ textDecoration: isSold ? 'line-through' : 'none' }}>{name}: </span>
+            </TableCell>
+            <TableCell>
+                {tags.map(tag =>
+                    <Chip key={tag} label={tag} variant="default" color="secondary" />
+                )}
+            </TableCell>
+            <TableCell>
+                <Button variant="outlined" color="secondary" onClick={handleClick}>
+                    Buy
+                </Button>
+            </TableCell>
+        </TableRow>
+
     )
 }
 

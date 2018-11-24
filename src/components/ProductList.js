@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
+
+import { Button, Checkbox } from '@material-ui/core'
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TablePagination,
+    TableRow,
+    TableSortLabel
+} from '@material-ui/core';
+
 import Product from './Product'
-import { Button } from '@material-ui/core'
 
 class ProductList extends Component {
     state = {
@@ -37,13 +48,23 @@ class ProductList extends Component {
                 <p>
                     <input type='text' value={this.state.filter} onChange={(e) => this.setState({ filter: e.target.value })} />
                 </p>
-                <ul>
-                    {products.map(product => (
-                        <li key={product.id}>
-                            <Product  {...product} onBuyClick={this.handleBuyClick} />
-                        </li>
-                    ))}
-                </ul>
+
+
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Id</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Tags</TableCell>
+                            <TableCell>Action</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {products.map(product => (
+                            <Product key={product.id} {...product} onBuyClick={this.handleBuyClick} />
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
         )
     }
