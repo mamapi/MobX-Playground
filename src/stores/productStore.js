@@ -1,4 +1,4 @@
-import { observable, action, computed, autorun } from 'mobx'
+import { observable, action, runInAction } from 'mobx'
 
 
 class ProductStore {
@@ -24,6 +24,20 @@ class ProductStore {
         this.filterValue = value
     }
 
+    fetchData() {
+        return new Promise(() => 1)
+    }
+
+    @action async getData() {
+        try {
+            const response = await this.fetchData()
+            runInAction(() => {
+                this.buyProduct(response)
+            })
+        } catch (error) {
+            alert(error)
+        }
+    }
 
 }
 
