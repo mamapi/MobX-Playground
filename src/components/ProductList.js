@@ -4,9 +4,12 @@ import { Product } from './Product'
 export class ProductList extends Component {
     state = {
         products: [
-            { id: 0, name: 'Apple', tags: ['Red', 'Green'], isSold: false },
-            { id: 1, name: 'Cofee', tags: ['White', 'Black'], isSold: false }
-        ]
+            { id: 0, name: 'Cofee', tags: ['White', 'Black'], isSold: false },
+            { id: 1, name: 'Apple', tags: ['Red', 'Green'], isSold: false },
+            { id: 2, name: 'Box', tags: ['Yellow', 'Blue'], isSold: false }
+        ],
+        sortBy: 'id',
+        filter: ''
     }
 
     handleBuyClick = id => {
@@ -17,15 +20,26 @@ export class ProductList extends Component {
     }
 
     render() {
-        const { products } = this.state
+        const { sortBy, filter } = this.state
+        const products = this.state.products
+            .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+            .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
+
         return (
-            <ul>
-                {products.map(product => (
-                    <li key={product.id}>
-                        <Product  {...product} onBuyClick={this.handleBuyClick} />
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <button onClick={() => this.setState({ sortBy: 'id' })}>Sort by id</button>
+                <button onClick={() => this.setState({ sortBy: 'name' })}>Sort by name</button>
+                <p>
+                    <input type='text' value={this.state.filter} onChange={(e) => this.setState({ filter: e.target.value })} />
+                </p>
+                <ul>
+                    {products.map(product => (
+                        <li key={product.id}>
+                            <Product  {...product} onBuyClick={this.handleBuyClick} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
         )
     }
 }
