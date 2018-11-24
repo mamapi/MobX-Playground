@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { Button, Checkbox } from '@material-ui/core'
 import {
@@ -12,13 +12,14 @@ import {
     TableSortLabel
 } from '@material-ui/core';
 
-import productStore from '../stores/productStore'
 import Product from './Product'
 
+@inject('productStore')
 @observer
 class ProductList extends Component {
 
     render() {
+        const { productStore } = this.props
         const { sortBy, filterValue, buyProduct, setSorting, updateFilter } = productStore
         const products = productStore.products
             .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
