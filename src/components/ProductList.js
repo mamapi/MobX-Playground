@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 import { Button, Checkbox } from '@material-ui/core'
 import {
@@ -11,29 +12,24 @@ import {
     TableSortLabel
 } from '@material-ui/core';
 
+import productStore from '../stores/productStore'
 import Product from './Product'
 
+@observer
 class ProductList extends Component {
     state = {
-        products: [
-            { id: 0, name: 'Cofee', tags: ['White', 'Black'], isSold: false },
-            { id: 1, name: 'Apple', tags: ['Red', 'Green'], isSold: false },
-            { id: 2, name: 'Box', tags: ['Yellow', 'Blue'], isSold: false }
-        ],
         sortBy: 'id',
         filter: ''
     }
 
     handleBuyClick = id => {
-        this.setState(previousState => {
-            const products = previousState.products.map(p => p.id === id ? { ...p, isSold: true } : { ...p })
-            return { products }
-        })
+        const productToBeSold = productStore.products.find(p => p.id === id)
+        productToBeSold.isSold = true
     }
 
     render() {
         const { sortBy, filter } = this.state
-        const products = this.state.products
+        const products = productStore.products
             .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
             .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
 

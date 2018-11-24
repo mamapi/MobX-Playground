@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 
 import { Button, Chip } from '@material-ui/core'
 
@@ -38,4 +39,4 @@ const Product = ({ id, name, tags, isSold, onBuyClick }) => {
     )
 }
 
-export default Product
+export default observer(Product)
