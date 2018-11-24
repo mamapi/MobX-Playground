@@ -4,6 +4,7 @@ import { configure, autorun } from 'mobx';
 import DevTools from 'mobx-react-devtools'
 
 import productStore from '../stores/productStore'
+import basketStore from '../stores/basketStore'
 import ProductList from '../components/ProductList'
 
 autorun(() => {
@@ -14,7 +15,7 @@ autorun(() => {
 
 export const Root = () => (
     <div>
-        <Provider productStore={productStore}>
+        <Provider productStore={productStore} basketStore={basketStore}>
             <ProductList />
         </Provider>
 

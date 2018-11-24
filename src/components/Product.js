@@ -9,10 +9,14 @@ import {
 } from '@material-ui/core';
 
 
-const Product = ({ id, name, tags, isSold, onBuyClick }) => {
+const Product = (props) => {
+
+    const { onBuyClick } = props
+    const { id, name, tags, isSold } = props.product
 
     const handleClick = () => {
-        onBuyClick(id)
+        console.log(props.product)
+        onBuyClick(props.product)
     }
 
     return (

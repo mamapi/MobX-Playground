@@ -8,10 +8,6 @@ class ProductStore {
         { id: 2, name: 'Box', tags: ['Yellow', 'Blue'], isSold: false }
     ]
 
-    @computed get soldProductsNumber() {
-        return this.products.filter(p => p.isSold).length
-    }
-
     @observable sortBy = 'id'
     @observable filterValue = ''
 

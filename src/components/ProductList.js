@@ -15,12 +15,20 @@ import {
 import Product from './Product'
 
 @inject('productStore')
+@inject('basketStore')
 @observer
 class ProductList extends Component {
 
+    handleBuyClick = product => {
+        console.log(product)
+        this.props.productStore.buyProduct(product.id)
+        this.props.basketStore.addProduct(product)
+    }
+
     render() {
-        const { productStore } = this.props
-        const { sortBy, filterValue, buyProduct, setSorting, updateFilter, soldProductsNumber } = productStore
+        const { productStore, basketStore } = this.props
+        const { sortBy, filterValue, setSorting, updateFilter, soldProductsNumber } = productStore
+        const { productsNumber } = basketStore
         const products = productStore.products
             .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
             .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
@@ -49,11 +57,14 @@ class ProductList extends Component {
                     </TableHead>
                     <TableBody>
                         {products.map(product => (
-                            <Product key={product.id} {...product} onBuyClick={buyProduct} />
+                            <Product key={product.id} product={product} onBuyClick={this.handleBuyClick} />
                         ))}
                     </TableBody>
                 </Table>
-                <span>No. of sold products: {soldProductsNumber}</span>
+
+                <p>Basket</p>
+                <p>No. of products in basket: {productsNumber}</p>
+                 {basketStore.products.map(item => <p key={item.id}>{item.product.name} {item.qty}</p>)}           
             </div>
         )
     }
