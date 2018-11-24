@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed, autorun } from 'mobx'
 
 
 class ProductStore {
@@ -7,6 +7,10 @@ class ProductStore {
         { id: 1, name: 'Apple', tags: ['Red', 'Green'], isSold: false },
         { id: 2, name: 'Box', tags: ['Yellow', 'Blue'], isSold: false }
     ]
+
+    @computed get soldProductsNumber() {
+        return this.products.filter(p => p.isSold).length
+    }
 
     @observable sortBy = 'id'
     @observable filterValue = ''
@@ -20,10 +24,13 @@ class ProductStore {
         this.sortBy = field
     }
 
-    @action updateFilter = value => [
+    @action updateFilter = value => {
         this.filterValue = value
-    ]
+    }
+
 
 }
+const store = new ProductStore();
+autorun(() => console.log('soldProductsNumber::', store.soldProductsNumber))
 
-export default new ProductStore()
+export default store

@@ -20,7 +20,7 @@ class ProductList extends Component {
 
     render() {
         const { productStore } = this.props
-        const { sortBy, filterValue, buyProduct, setSorting, updateFilter } = productStore
+        const { sortBy, filterValue, buyProduct, setSorting, updateFilter, soldProductsNumber } = productStore
         const products = productStore.products
             .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
             .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
@@ -53,6 +53,7 @@ class ProductList extends Component {
                         ))}
                     </TableBody>
                 </Table>
+                <span>No. of sold products: {soldProductsNumber}</span>
             </div>
         )
     }
