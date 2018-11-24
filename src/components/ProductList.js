@@ -17,32 +17,27 @@ import Product from './Product'
 
 @observer
 class ProductList extends Component {
-    state = {
-        sortBy: 'id',
-        filter: ''
-    }
-
     handleBuyClick = id => {
         const productToBeSold = productStore.products.find(p => p.id === id)
         productToBeSold.isSold = true
     }
 
     render() {
-        const { sortBy, filter } = this.state
+        const { sortBy, filterValue } = productStore
         const products = productStore.products
-            .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+            .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
             .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
 
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={() => this.setState({ sortBy: 'id' })}>
+                <Button variant="outlined" color="primary" onClick={() => productStore.sortBy = 'id'}>
                     Sort by Id
                 </Button>
-                <Button variant="outlined" color="primary" onClick={() => this.setState({ sortBy: 'name' })}>
+                <Button variant="outlined" color="primary" onClick={() => productStore.sortBy = 'name'}>
                     Sort by Name
                 </Button>
                 <p>
-                    <input type='text' value={this.state.filter} onChange={(e) => this.setState({ filter: e.target.value })} />
+                    <input type='text' value={filterValue} onChange={(e) => this.setState({ filter: e.target.value })} />
                 </p>
 
 
