@@ -30,7 +30,5 @@ class ProductStore {
 
 
 }
-const store = new ProductStore();
-autorun(() => console.log('soldProductsNumber::', store.soldProductsNumber))
 
-export default store
+export default new ProductStore();
