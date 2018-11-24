@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
 
 
 class ProductStore {
@@ -10,6 +10,19 @@ class ProductStore {
 
     @observable sortBy = 'id'
     @observable filterValue = ''
+
+    @action buyProduct = id => {
+        const productToBeSold = this.products.find(p => p.id === id)
+        productToBeSold.isSold = true
+    }
+
+    @action setSorting = field => {
+        this.sortBy = field
+    }
+
+    @action updateFilter = value => [
+        this.filterValue = value
+    ]
 
 }
 

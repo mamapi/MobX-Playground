@@ -17,27 +17,23 @@ import Product from './Product'
 
 @observer
 class ProductList extends Component {
-    handleBuyClick = id => {
-        const productToBeSold = productStore.products.find(p => p.id === id)
-        productToBeSold.isSold = true
-    }
 
     render() {
-        const { sortBy, filterValue } = productStore
+        const { sortBy, filterValue, buyProduct, setSorting, updateFilter } = productStore
         const products = productStore.products
             .filter(item => item.name === '' || item.name.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase()))
             .sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)
 
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={() => productStore.sortBy = 'id'}>
+                <Button variant="outlined" color="primary" onClick={() => setSorting('id')}>
                     Sort by Id
                 </Button>
-                <Button variant="outlined" color="primary" onClick={() => productStore.sortBy = 'name'}>
+                <Button variant="outlined" color="primary" onClick={() => setSorting('name')}>
                     Sort by Name
                 </Button>
                 <p>
-                    <input type='text' value={filterValue} onChange={(e) => this.setState({ filter: e.target.value })} />
+                    <input type='text' value={filterValue} onChange={(e) => updateFilter(e.target.value)} />
                 </p>
 
 
@@ -52,7 +48,7 @@ class ProductList extends Component {
                     </TableHead>
                     <TableBody>
                         {products.map(product => (
-                            <Product key={product.id} {...product} onBuyClick={this.handleBuyClick} />
+                            <Product key={product.id} {...product} onBuyClick={buyProduct} />
                         ))}
                     </TableBody>
                 </Table>
