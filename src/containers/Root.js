@@ -1,9 +1,7 @@
 import React from 'react'
+import { ProductList } from '../components'
 
 export const Root = () => (
-    <ul>
-        <li>Apple</li>
-        <li>Coffee</li>
-    </ul>
+    <ProductList />
 )
 
